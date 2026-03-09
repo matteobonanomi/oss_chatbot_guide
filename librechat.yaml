@@ -1,0 +1,18 @@
+version: 1.3.4
+
+endpoints:
+  custom:
+    - name: "LiteLLM"
+      apiKey: "${LITELLM_MASTER_KEY}"
+      baseURL: "http://litellm:4000/v1"
+      models:
+        default:
+          - qwen_small
+          - qwen_8b
+          - qwen_14b
+          - mistral_24b
+          - gemma3_27b
+          - qwen_30b
+          - llama_70b
+          - qwen_80b
+      modelDisplayLabel: "LiteLLM"

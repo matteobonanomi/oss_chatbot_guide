@@ -1,0 +1,134 @@
+
+model_list:
+  # 4B - piccolo e recente
+  - model_name: qwen_small
+    litellm_params:
+      model: openrouter/qwen/qwen3-4b:free
+      api_key: os.environ/OPENROUTER_API_KEY
+      extra_headers:
+        HTTP-Referer: os.environ/OR_SITE_URL
+        X-Title: os.environ/OR_APP_NAME
+
+  - model_name: qwen_small_paid
+    litellm_params:
+      model: openrouter/qwen/qwen3-4b
+      api_key: os.environ/OPENROUTER_API_KEY
+      extra_headers:
+        HTTP-Referer: os.environ/OR_SITE_URL
+        X-Title: os.environ/OR_APP_NAME
+
+  # 8B - molto equilibrato
+  - model_name: qwen_8b
+    litellm_params:
+      model: openrouter/qwen/qwen3-8b:free
+      api_key: os.environ/OPENROUTER_API_KEY
+      extra_headers:
+        HTTP-Referer: os.environ/OR_SITE_URL
+        X-Title: os.environ/OR_APP_NAME
+
+  - model_name: qwen_8b_paid
+    litellm_params:
+      model: openrouter/qwen/qwen3-8b
+      api_key: os.environ/OPENROUTER_API_KEY
+      extra_headers:
+        HTTP-Referer: os.environ/OR_SITE_URL
+        X-Title: os.environ/OR_APP_NAME
+
+  # 14B - step intermedio utile
+  - model_name: qwen_14b
+    litellm_params:
+      model: openrouter/qwen/qwen3-14b:free
+      api_key: os.environ/OPENROUTER_API_KEY
+      extra_headers:
+        HTTP-Referer: os.environ/OR_SITE_URL
+        X-Title: os.environ/OR_APP_NAME
+
+  - model_name: qwen_14b_paid
+    litellm_params:
+      model: openrouter/qwen/qwen3-14b
+      api_key: os.environ/OPENROUTER_API_KEY
+      extra_headers:
+        HTTP-Referer: os.environ/OR_SITE_URL
+        X-Title: os.environ/OR_APP_NAME
+
+  # 24B - meglio del tuo Mistral 2501
+  - model_name: mistral_24b
+    litellm_params:
+      model: openrouter/mistralai/mistral-small-3.2-24b-instruct
+      api_key: os.environ/OPENROUTER_API_KEY
+      extra_headers:
+        HTTP-Referer: os.environ/OR_SITE_URL
+        X-Title: os.environ/OR_APP_NAME
+
+  # 27B - Gemma 3 con free + paid
+  - model_name: gemma3_27b
+    litellm_params:
+      model: openrouter/google/gemma-3-27b-it:free
+      api_key: os.environ/OPENROUTER_API_KEY
+      extra_headers:
+        HTTP-Referer: os.environ/OR_SITE_URL
+        X-Title: os.environ/OR_APP_NAME
+
+  - model_name: gemma3_27b_paid
+    litellm_params:
+      model: openrouter/google/gemma-3-27b-it
+      api_key: os.environ/OPENROUTER_API_KEY
+      extra_headers:
+        HTTP-Referer: os.environ/OR_SITE_URL
+        X-Title: os.environ/OR_APP_NAME
+
+  # 30B - molto recente
+  - model_name: qwen_30b
+    litellm_params:
+      model: openrouter/qwen/qwen3-30b-a3b-instruct-2507
+      api_key: os.environ/OPENROUTER_API_KEY
+      extra_headers:
+        HTTP-Referer: os.environ/OR_SITE_URL
+        X-Title: os.environ/OR_APP_NAME
+
+  # 70B - aggiorna Llama 3.1 -> 3.3
+  - model_name: llama_70b
+    litellm_params:
+      model: openrouter/meta-llama/llama-3.3-70b-instruct:free
+      api_key: os.environ/OPENROUTER_API_KEY
+      extra_headers:
+        HTTP-Referer: os.environ/OR_SITE_URL
+        X-Title: os.environ/OR_APP_NAME
+
+  - model_name: llama_70b_paid
+    litellm_params:
+      model: openrouter/meta-llama/llama-3.3-70b-instruct
+      api_key: os.environ/OPENROUTER_API_KEY
+      extra_headers:
+        HTTP-Referer: os.environ/OR_SITE_URL
+        X-Title: os.environ/OR_APP_NAME
+
+  # 80B - molto recente
+  - model_name: qwen_80b
+    litellm_params:
+      model: openrouter/qwen/qwen3-next-80b-a3b-instruct:free
+      api_key: os.environ/OPENROUTER_API_KEY
+      extra_headers:
+        HTTP-Referer: os.environ/OR_SITE_URL
+        X-Title: os.environ/OR_APP_NAME
+
+  - model_name: qwen_80b_paid
+    litellm_params:
+      model: openrouter/qwen/qwen3-next-80b-a3b-instruct
+      api_key: os.environ/OPENROUTER_API_KEY
+      extra_headers:
+        HTTP-Referer: os.environ/OR_SITE_URL
+        X-Title: os.environ/OR_APP_NAME
+
+litellm_settings:
+  fallbacks:
+    - {"qwen_small": ["qwen_small_paid"]}
+    - {"qwen_8b": ["qwen_8b_paid"]}
+    - {"qwen_14b": ["qwen_14b_paid"]}
+    - {"gemma3_27b": ["gemma3_27b_paid"]}
+    - {"llama_70b": ["llama_70b_paid"]}
+    - {"qwen_80b": ["qwen_80b_paid"]}
+
+general_settings:
+  master_key: os.environ/LITELLM_MASTER_KEY
+  max_budget: 15

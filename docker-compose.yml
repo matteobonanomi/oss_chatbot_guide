@@ -1,0 +1,76 @@
+name: ai-stack
+
+services:
+  mongodb:
+    image: mongo:7
+    restart: unless-stopped
+    volumes:
+      - mongo_data:/data/db
+    networks: [internal]
+
+  litellm:
+    image: ghcr.io/berriai/litellm:main-latest
+    restart: unless-stopped
+    command: ["--config", "/app/config.yaml", "--port", "4000", "--host", "0.0.0.0"]
+    environment:
+      LITELLM_MASTER_KEY: ${LITELLM_MASTER_KEY}
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY}
+      OR_SITE_URL: ${OR_SITE_URL}
+      OR_APP_NAME: ${OR_APP_NAME}
+    volumes:
+      - ./litellm/config.yaml:/app/config.yaml:ro
+    networks: [internal]
+
+  librechat:
+    image: ghcr.io/danny-avila/librechat:latest
+    restart: unless-stopped
+    depends_on:
+      - mongodb
+      - litellm
+    environment:
+      HOST: 0.0.0.0
+      PORT: 3080
+      # Login/Registrazione
+      ALLOW_EMAIL_LOGIN: ${ALLOW_EMAIL_LOGIN}
+      ALLOW_REGISTRATION: ${ALLOW_REGISTRATION}
+      ALLOW_SOCIAL_LOGIN: ${ALLOW_SOCIAL_LOGIN}
+      ALLOW_SOCIAL_REGISTRATION: ${ALLOW_SOCIAL_REGISTRATION}
+      SESSION_EXPIRY: ${SESSION_EXPIRY}
+      REFRESH_TOKEN_EXPIRY: ${REFRESH_TOKEN_EXPIRY}
+      LITELLM_MASTER_KEY: ${LITELLM_MASTER_KEY}
+
+      # LibreChat usa MongoDB
+      MONGO_URI: mongodb://mongodb:27017/LibreChat
+
+      # Crypto/JWT
+      CREDS_KEY: ${CREDS_KEY}
+      CREDS_IV: ${CREDS_IV}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET}
+
+      # Opzionale
+      NODE_ENV: production
+      PUBLIC_URL: ${PUBLIC_URL}
+    # Solo localhost (poi esponi con Cloudflare Tunnel)
+    ports:
+      - "127.0.0.1:3080:3080"
+    networks: [internal]
+    volumes:
+      - ./librechat.yaml:/app/librechat.yaml
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    restart: unless-stopped
+    command: tunnel --no-autoupdate --protocol http2 run --token ${CLOUDFLARE_TUNNEL_TOKEN}
+    environment:
+      CLOUDFLARE_TUNNEL_TOKEN: ${CLOUDFLARE_TUNNEL_TOKEN}  
+    depends_on:
+      - librechat
+    networks: [internal]
+
+networks:
+  internal:
+    driver: bridge
+
+volumes:
+  mongo_data:
