@@ -1,2 +1,4 @@
 .ssh/*
 .env
+opencode.json
+.opencode/*
