@@ -1,20 +1,57 @@
 model_list:
-  # BIG QWEN (paid only on OpenRouter in the results checked)
-  - model_name: qwen_big
+  # Plain benchmark / zero-thinking path
+  - model_name: benchmark_plain
     litellm_params:
-      model: openrouter/qwen/qwen3.5-122b-a10b
+      model: openrouter/qwen/qwen3-8b:free
       api_key: os.environ/OPENROUTER_API_KEY
+      timeout: 60
+      stream_timeout: 15
+      extra_headers:
+        HTTP-Referer: os.environ/OR_SITE_URL
+        X-Title: os.environ/OR_APP_NAME
+      extra_body:
+        reasoning:
+          effort: none
+          exclude: true
+    model_info:
+      supports_reasoning: false
+
+  - model_name: benchmark_plain_paid
+    litellm_params:
+      model: openrouter/qwen/qwen3-8b
+      api_key: os.environ/OPENROUTER_API_KEY
+      timeout: 60
+      stream_timeout: 15
+      extra_headers:
+        HTTP-Referer: os.environ/OR_SITE_URL
+        X-Title: os.environ/OR_APP_NAME
+      extra_body:
+        reasoning:
+          effort: none
+          exclude: true
+    model_info:
+      supports_reasoning: false
+
+  # Small Qwen (<10B), latest stronger paid option
+  - model_name: qwen_small
+    litellm_params:
+      model: openrouter/qwen/qwen3.5-9b
+      api_key: os.environ/OPENROUTER_API_KEY
+      timeout: 90
+      stream_timeout: 20
       extra_headers:
         HTTP-Referer: os.environ/OR_SITE_URL
         X-Title: os.environ/OR_APP_NAME
     model_info:
       supports_reasoning: true
 
-  # MEDIUM QWEN (best exact 10-20B tier with same-model free + paid)
+  # Medium Qwen (10-20B) with free + paid
   - model_name: qwen_medium
     litellm_params:
       model: openrouter/qwen/qwen3-14b:free
       api_key: os.environ/OPENROUTER_API_KEY
+      timeout: 90
+      stream_timeout: 20
       extra_headers:
         HTTP-Referer: os.environ/OR_SITE_URL
         X-Title: os.environ/OR_APP_NAME
@@ -25,71 +62,62 @@ model_list:
     litellm_params:
       model: openrouter/qwen/qwen3-14b
       api_key: os.environ/OPENROUTER_API_KEY
+      timeout: 90
+      stream_timeout: 20
       extra_headers:
         HTTP-Referer: os.environ/OR_SITE_URL
         X-Title: os.environ/OR_APP_NAME
     model_info:
       supports_reasoning: true
 
-  # SMALL QWEN (<10B): free rescue + latest paid small
-  - model_name: qwen_small
+  # Big Qwen (80B+ class), strongest main model
+  - model_name: qwen_big
     litellm_params:
-      model: openrouter/qwen/qwen3-8b:free
+      model: openrouter/qwen/qwen3.5-122b-a10b
       api_key: os.environ/OPENROUTER_API_KEY
+      timeout: 180
+      stream_timeout: 30
       extra_headers:
         HTTP-Referer: os.environ/OR_SITE_URL
         X-Title: os.environ/OR_APP_NAME
     model_info:
       supports_reasoning: true
 
-  - model_name: qwen_small_paid
-    litellm_params:
-      model: openrouter/qwen/qwen3.5-9b
-      api_key: os.environ/OPENROUTER_API_KEY
-      extra_headers:
-        HTTP-Referer: os.environ/OR_SITE_URL
-        X-Title: os.environ/OR_APP_NAME
-    model_info:
-      supports_reasoning: true
-
-  # MISTRAL: newest practical reasoning-capable generalist
+  # Mistral alternative
   - model_name: mistral_reasoning
     litellm_params:
       model: openrouter/mistralai/mistral-small-2603
       api_key: os.environ/OPENROUTER_API_KEY
+      timeout: 120
+      stream_timeout: 25
       extra_headers:
         HTTP-Referer: os.environ/OR_SITE_URL
         X-Title: os.environ/OR_APP_NAME
     model_info:
       supports_reasoning: true
 
-  # EMBEDDINGS (optional upgrade from bge-m3; changing this requires full re-embedding)
-  - model_name: qwen_embeddings
-    litellm_params:
-      model: openrouter/qwen/qwen3-embedding-4b
-      api_key: os.environ/OPENROUTER_API_KEY
-      extra_headers:
-        HTTP-Referer: os.environ/OR_SITE_URL
-        X-Title: os.environ/OR_APP_NAME
-  # default embeddings models
+  # Embeddings for RAG
   - model_name: bge-m3
     litellm_params:
       model: openrouter/baai/bge-m3
       api_key: os.environ/OPENROUTER_API_KEY
+      timeout: 120
+      extra_headers:
+        HTTP-Referer: os.environ/OR_SITE_URL
+        X-Title: os.environ/OR_APP_NAME
 
 litellm_settings:
-  # Makes reasoning/tool calls less fragile across providers and clients
   modify_params: true
   drop_params: true
 
-  # Free -> paid -> stronger fallback chains
   fallbacks:
-    - {"qwen_small": ["qwen_small_paid", "qwen_medium_paid", "qwen_big"]}
-    - {"qwen_small_paid": ["qwen_medium_paid", "qwen_big"]}
-    - {"qwen_medium": ["qwen_medium_paid", "qwen_small_paid", "qwen_big"]}
-    - {"qwen_medium_paid": ["qwen_small_paid", "qwen_big"]}
-    - {"qwen_big": ["qwen_medium_paid", "qwen_small_paid", "mistral_reasoning"]}
-    - {"mistral_reasoning": ["qwen_medium_paid", "qwen_small_paid"]}
+    - {"benchmark_plain": ["benchmark_plain_paid", "qwen_small", "qwen_medium_paid", "qwen_big"]}
+    - {"benchmark_plain_paid": ["qwen_small", "qwen_medium_paid", "qwen_big"]}
+    - {"qwen_small": ["qwen_medium_paid", "benchmark_plain_paid", "qwen_big"]}
+    - {"qwen_medium": ["qwen_medium_paid", "qwen_small", "qwen_big"]}
+    - {"qwen_medium_paid": ["qwen_big", "mistral_reasoning", "qwen_small"]}
+    - {"qwen_big": ["qwen_medium_paid", "mistral_reasoning", "qwen_small"]}
+    - {"mistral_reasoning": ["qwen_medium_paid", "qwen_small", "benchmark_plain_paid"]}
 
 general_settings:
   master_key: os.environ/LITELLM_MASTER_KEY

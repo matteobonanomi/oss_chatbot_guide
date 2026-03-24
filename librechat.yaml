@@ -16,6 +16,7 @@ endpoints:
     capabilities:
       - "file_search"
       - "context"
+
   custom:
     - name: "OpenRouter"
       apiKey: "${LITELLM_MASTER_KEY}"
@@ -23,21 +24,107 @@ endpoints:
       models:
         default:
           - qwen_small
-          - qwen_medium
-          - qwen_big
-          - mistral_reasoning
+        fetch: false
       titleConvo: true
-      titleModel: "qwen_small"
-      modelDisplayLabel: "Gateway"
+      titleMethod: "completion"
+      titleModel: "benchmark_plain"
+      modelDisplayLabel: "OpenRouter"
       customParams:
         defaultParamsEndpoint: "openAI"
         paramDefinitions:
           - key: reasoning_effort
-            default: minimal
           - key: reasoning_summary
             default: ""
           - key: verbosity
             default: medium
+
+modelSpecs:
+  enforce: false
+  prioritize: true
+  list:
+    - name: "benchmark-no-reasoning"
+      label: "Benchmark · No Reasoning"
+      default: true
+      description: "Baseline veloce e senza thinking visibile"
+      group: "OpenRouter"
+      preset:
+        endpoint: "OpenRouter"
+        model: "qwen_small"
+        modelLabel: "Benchmark · No Reasoning"
+        reasoning_effort: minimal
+        verbosity: low
+
+    - name: "qwen-small-balanced"
+      label: "Qwen Small · Balanced"
+      description: "Piccolo ma moderno, per chat economiche con reasoning leggero"
+      group: "OpenRouter"
+      preset:
+        endpoint: "OpenRouter"
+        model: "qwen_small"
+        modelLabel: "Qwen Small · Balanced"
+        reasoning_effort: low
+        reasoning_summary: auto
+        verbosity: medium
+
+    - name: "qwen-medium-fast"
+      label: "Qwen Medium · Fast"
+      description: "Compromesso costo/qualità per chat standard, reasoning minimo"
+      group: "OpenRouter"
+      preset:
+        endpoint: "OpenRouter"
+        model: "qwen_medium"
+        modelLabel: "Qwen Medium · Fast"
+        reasoning_effort: minimal
+        reasoning_summary: ""
+        verbosity: low
+
+    - name: "qwen-medium-balanced"
+      label: "Qwen Medium · Balanced"
+      description: "Preset consigliato per uso quotidiano con reasoning leggero"
+      group: "OpenRouter"
+      preset:
+        endpoint: "OpenRouter"
+        model: "qwen_medium"
+        modelLabel: "Qwen Medium · Balanced"
+        reasoning_effort: low
+        reasoning_summary: auto
+        verbosity: medium
+
+    - name: "qwen-big-deep"
+      label: "Qwen Big · Deep Reasoning"
+      description: "Per task difficili, pianificazione, analisi e risposte più robuste"
+      group: "OpenRouter"
+      preset:
+        endpoint: "OpenRouter"
+        model: "qwen_big"
+        modelLabel: "Qwen Big · Deep Reasoning"
+        reasoning_effort: high
+        reasoning_summary: concise
+        verbosity: medium
+
+    - name: "qwen-big-max"
+      label: "Qwen Big · Max Reasoning"
+      description: "Qualità massima, più lento e più costoso"
+      group: "OpenRouter"
+      preset:
+        endpoint: "OpenRouter"
+        model: "qwen_big"
+        modelLabel: "Qwen Big · Max Reasoning"
+        reasoning_effort: xhigh
+        reasoning_summary: detailed
+        verbosity: medium
+
+    - name: "mistral-balanced"
+      label: "Mistral · Balanced"
+      description: "Alternativa Mistral moderna per confronto e fallback"
+      group: "OpenRouter"
+      preset:
+        endpoint: "OpenRouter"
+        model: "mistral_reasoning"
+        modelLabel: "Mistral · Balanced"
+        reasoning_effort: low
+        reasoning_summary: auto
+        verbosity: medium
 
 fileConfig:
   endpoints:
