@@ -3,6 +3,9 @@ version: 1.3.5
 interface:
   fileSearch: true
   fileCitations: true
+  modelSelect: true
+  parameters: true
+  presets: true
 
 endpoints:
   agents:
@@ -14,21 +17,27 @@ endpoints:
       - "file_search"
       - "context"
   custom:
-    - name: "LiteLLM"
+    - name: "OpenRouter"
       apiKey: "${LITELLM_MASTER_KEY}"
       baseURL: "http://litellm:4000/v1"
       models:
         default:
           - qwen_small
-          - qwen_8b
-          - qwen_14b
-          - mistral_24b
-          - gemma3_27b
-          - qwen_30b
-          - llama_70b
-          - qwen_80b
+          - qwen_medium
+          - qwen_big
+          - mistral_reasoning
       titleConvo: true
-      modelDisplayLabel: "LiteLLM"
+      titleModel: "qwen_small"
+      modelDisplayLabel: "Gateway"
+      customParams:
+        defaultParamsEndpoint: "openAI"
+        paramDefinitions:
+          - key: reasoning_effort
+            default: minimal
+          - key: reasoning_summary
+            default: ""
+          - key: verbosity
+            default: medium
 
 fileConfig:
   endpoints:
@@ -54,7 +63,7 @@ fileConfig:
         - "^application/xml$"
         - "^application/vnd.openxmlformats-officedocument.wordprocessingml.document$"
         - "^application/msword$"
-    LiteLLM:
+    OpenRouter:
       fileLimit: 5
       fileSizeLimit: 25
       totalSizeLimit: 75
