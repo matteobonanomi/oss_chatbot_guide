@@ -1,40 +1,31 @@
 model_list:
-  # SMALL - preset visible
+  # SMALL - NO REASONING (FIXED)
   - model_name: small_plain
     litellm_params:
-      model: openrouter/qwen/qwen3-8b:free
+      model: openrouter/google/gemma-2-9b-it:free
       api_key: os.environ/OPENROUTER_API_KEY
       timeout: 18
       stream_timeout: 6
-      reasoning:
-        effort: none
-        exclude: true
       extra_headers:
         HTTP-Referer: os.environ/OR_SITE_URL
         X-Title: os.environ/OR_APP_NAME
 
   - model_name: small_plain_paid
     litellm_params:
-      model: openrouter/qwen/qwen3-8b
+      model: openrouter/google/gemma-2-9b-it
       api_key: os.environ/OPENROUTER_API_KEY
       timeout: 18
       stream_timeout: 6
-      reasoning:
-        effort: none
-        exclude: true
       extra_headers:
         HTTP-Referer: os.environ/OR_SITE_URL
         X-Title: os.environ/OR_APP_NAME
 
   - model_name: small_plain_backup1
     litellm_params:
-      model: openrouter/qwen/qwen3-4b
+      model: openrouter/google/gemma-2-9b-it:free
       api_key: os.environ/OPENROUTER_API_KEY
       timeout: 14
       stream_timeout: 5
-      reasoning:
-        effort: none
-        exclude: true
       extra_headers:
         HTTP-Referer: os.environ/OR_SITE_URL
         X-Title: os.environ/OR_APP_NAME
@@ -45,9 +36,9 @@ model_list:
       api_key: os.environ/OPENROUTER_API_KEY
       timeout: 24
       stream_timeout: 7
-      reasoning:
-        effort: minimal
-        exclude: false
+      extra_body:
+        reasoning:
+          exclude: false
       extra_headers:
         HTTP-Referer: os.environ/OR_SITE_URL
         X-Title: os.environ/OR_APP_NAME
@@ -60,9 +51,9 @@ model_list:
       api_key: os.environ/OPENROUTER_API_KEY
       timeout: 24
       stream_timeout: 7
-      reasoning:
-        effort: minimal
-        exclude: false
+      extra_body:
+        reasoning:
+          exclude: false
       extra_headers:
         HTTP-Referer: os.environ/OR_SITE_URL
         X-Title: os.environ/OR_APP_NAME
@@ -75,9 +66,9 @@ model_list:
       api_key: os.environ/OPENROUTER_API_KEY
       timeout: 24
       stream_timeout: 7
-      reasoning:
-        effort: minimal
-        exclude: false
+      extra_body:
+        reasoning:
+          exclude: false
       extra_headers:
         HTTP-Referer: os.environ/OR_SITE_URL
         X-Title: os.environ/OR_APP_NAME
@@ -90,9 +81,9 @@ model_list:
       api_key: os.environ/OPENROUTER_API_KEY
       timeout: 18
       stream_timeout: 6
-      reasoning:
-        effort: minimal
-        exclude: false
+      extra_body:
+        reasoning:
+          exclude: false
       extra_headers:
         HTTP-Referer: os.environ/OR_SITE_URL
         X-Title: os.environ/OR_APP_NAME
@@ -106,9 +97,9 @@ model_list:
       api_key: os.environ/OPENROUTER_API_KEY
       timeout: 28
       stream_timeout: 8
-      reasoning:
-        effort: low
-        exclude: false
+      extra_body:
+        reasoning:
+          exclude: false
       extra_headers:
         HTTP-Referer: os.environ/OR_SITE_URL
         X-Title: os.environ/OR_APP_NAME
@@ -121,9 +112,9 @@ model_list:
       api_key: os.environ/OPENROUTER_API_KEY
       timeout: 28
       stream_timeout: 8
-      reasoning:
-        effort: low
-        exclude: false
+      extra_body:
+        reasoning:
+          exclude: false
       extra_headers:
         HTTP-Referer: os.environ/OR_SITE_URL
         X-Title: os.environ/OR_APP_NAME
@@ -136,9 +127,9 @@ model_list:
       api_key: os.environ/OPENROUTER_API_KEY
       timeout: 36
       stream_timeout: 10
-      reasoning:
-        effort: low
-        exclude: false
+      extra_body:
+        reasoning:
+          exclude: false
       extra_headers:
         HTTP-Referer: os.environ/OR_SITE_URL
         X-Title: os.environ/OR_APP_NAME
@@ -151,9 +142,9 @@ model_list:
       api_key: os.environ/OPENROUTER_API_KEY
       timeout: 36
       stream_timeout: 10
-      reasoning:
-        effort: low
-        exclude: false
+      extra_body:
+        reasoning:
+          exclude: false
       extra_headers:
         HTTP-Referer: os.environ/OR_SITE_URL
         X-Title: os.environ/OR_APP_NAME
@@ -166,9 +157,9 @@ model_list:
       api_key: os.environ/OPENROUTER_API_KEY
       timeout: 42
       stream_timeout: 12
-      reasoning:
-        effort: medium
-        exclude: false
+      extra_body:
+        reasoning:
+          exclude: false
       extra_headers:
         HTTP-Referer: os.environ/OR_SITE_URL
         X-Title: os.environ/OR_APP_NAME
@@ -181,9 +172,9 @@ model_list:
       api_key: os.environ/OPENROUTER_API_KEY
       timeout: 42
       stream_timeout: 12
-      reasoning:
-        effort: medium
-        exclude: false
+      extra_body:
+        reasoning:
+          exclude: false
       extra_headers:
         HTTP-Referer: os.environ/OR_SITE_URL
         X-Title: os.environ/OR_APP_NAME
@@ -196,9 +187,9 @@ model_list:
       api_key: os.environ/OPENROUTER_API_KEY
       timeout: 30
       stream_timeout: 8
-      reasoning:
-        effort: medium
-        exclude: false
+      extra_body:
+        reasoning:
+          exclude: false
       extra_headers:
         HTTP-Referer: os.environ/OR_SITE_URL
         X-Title: os.environ/OR_APP_NAME
@@ -222,9 +213,14 @@ model_list:
       api_key: os.environ/OPENROUTER_API_KEY
       timeout: 34
       stream_timeout: 9
+      extra_body:
+        reasoning:
+          exclude: false
       extra_headers:
         HTTP-Referer: os.environ/OR_SITE_URL
         X-Title: os.environ/OR_APP_NAME
+    model_info:
+      supports_reasoning: true
 
   - model_name: large_balanced_paid
     litellm_params:
@@ -232,9 +228,14 @@ model_list:
       api_key: os.environ/OPENROUTER_API_KEY
       timeout: 34
       stream_timeout: 9
+      extra_body:
+        reasoning:
+          exclude: false
       extra_headers:
         HTTP-Referer: os.environ/OR_SITE_URL
         X-Title: os.environ/OR_APP_NAME
+    model_info:
+      supports_reasoning: true
 
   - model_name: large_balanced_backup1
     litellm_params:
@@ -242,9 +243,9 @@ model_list:
       api_key: os.environ/OPENROUTER_API_KEY
       timeout: 48
       stream_timeout: 12
-      reasoning:
-        effort: high
-        exclude: false
+      extra_body:
+        reasoning:
+          exclude: false
       extra_headers:
         HTTP-Referer: os.environ/OR_SITE_URL
         X-Title: os.environ/OR_APP_NAME
@@ -257,9 +258,14 @@ model_list:
       api_key: os.environ/OPENROUTER_API_KEY
       timeout: 40
       stream_timeout: 10
+      extra_body:
+        reasoning:
+          exclude: false
       extra_headers:
         HTTP-Referer: os.environ/OR_SITE_URL
         X-Title: os.environ/OR_APP_NAME
+    model_info:
+      supports_reasoning: true
 
   - model_name: large_max
     litellm_params:
@@ -267,9 +273,9 @@ model_list:
       api_key: os.environ/OPENROUTER_API_KEY
       timeout: 55
       stream_timeout: 14
-      reasoning:
-        effort: xhigh
-        exclude: false
+      extra_body:
+        reasoning:
+          exclude: false
       extra_headers:
         HTTP-Referer: os.environ/OR_SITE_URL
         X-Title: os.environ/OR_APP_NAME
@@ -282,9 +288,14 @@ model_list:
       api_key: os.environ/OPENROUTER_API_KEY
       timeout: 40
       stream_timeout: 10
+      extra_body:
+        reasoning:
+          exclude: false
       extra_headers:
         HTTP-Referer: os.environ/OR_SITE_URL
         X-Title: os.environ/OR_APP_NAME
+    model_info:
+      supports_reasoning: true
 
   - model_name: large_max_backup2
     litellm_params:
@@ -292,9 +303,14 @@ model_list:
       api_key: os.environ/OPENROUTER_API_KEY
       timeout: 42
       stream_timeout: 10
+      extra_body:
+        reasoning:
+          exclude: false
       extra_headers:
         HTTP-Referer: os.environ/OR_SITE_URL
         X-Title: os.environ/OR_APP_NAME
+    model_info:
+      supports_reasoning: true
 
   - model_name: large_max_backup3
     litellm_params:
@@ -302,9 +318,14 @@ model_list:
       api_key: os.environ/OPENROUTER_API_KEY
       timeout: 34
       stream_timeout: 9
+      extra_body:
+        reasoning:
+          exclude: false
       extra_headers:
         HTTP-Referer: os.environ/OR_SITE_URL
         X-Title: os.environ/OR_APP_NAME
+    model_info:
+      supports_reasoning: true
 
   # EMBEDDINGS
   - model_name: bge-m3
