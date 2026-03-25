@@ -2,6 +2,7 @@ version: 1.3.5
 
 interface:
   fileSearch: true
+  webSearch: true
   fileCitations: true
   modelSelect: false
   parameters: false
@@ -14,6 +15,8 @@ modelSpecs:
     - name: "small-no-reasoning"
       label: "Small · No Reasoning"
       default: true
+      webSearch: true
+      fileSearch: true
       description: "Benchmark rapido: Qwen small con reasoning disattivato lato proxy."
       preset:
         endpoint: "OpenRouter"
@@ -22,6 +25,8 @@ modelSpecs:
         disableStreaming: false
     - name: "small-light"
       label: "Small · Light"
+      webSearch: true
+      fileSearch: true
       description: "Qwen small economico con reasoning minimo."
       preset:
         endpoint: "OpenRouter"
@@ -30,6 +35,8 @@ modelSpecs:
         disableStreaming: false
     - name: "medium-balanced"
       label: "Medium · Balanced"
+      webSearch: true
+      fileSearch: true
       description: "Categoria medium con priorità a free/cheap e reasoning leggero."
       preset:
         endpoint: "OpenRouter"
@@ -38,6 +45,8 @@ modelSpecs:
         disableStreaming: false
     - name: "medium-deep"
       label: "Medium · Deep"
+      webSearch: true
+      fileSearch: true
       description: "Categoria medium ottimizzata per qualità, con reasoning medio."
       preset:
         endpoint: "OpenRouter"
@@ -46,6 +55,8 @@ modelSpecs:
         disableStreaming: false
     - name: "large-balanced"
       label: "Large · Balanced"
+      webSearch: true
+      fileSearch: true
       description: "Large più rapido/stabile, con primo hop free se disponibile."
       preset:
         endpoint: "OpenRouter"
@@ -54,6 +65,8 @@ modelSpecs:
         disableStreaming: false
     - name: "large-max"
       label: "Large · Max"
+      webSearch: true
+      fileSearch: true
       description: "Preset large più robusto: massima qualità e massimo reasoning."
       preset:
         endpoint: "OpenRouter"
@@ -70,6 +83,7 @@ endpoints:
     capabilities:
       - "file_search"
       - "context"
+      - "web_search"
   custom:
     - name: "OpenRouter"
       apiKey: "${LITELLM_MASTER_KEY}"
@@ -87,6 +101,19 @@ endpoints:
       titleModel: "current_model"
       titleMethod: "completion"
       modelDisplayLabel: "OpenRouter"
+
+webSearch:
+  #searchProvider: "searxng"
+  #searxngInstanceUrl: "${SEARXNG_INSTANCE_URL}"
+  searchProvider: "serper"
+  scraperProvider: "serper"
+  serperApiKey: "${SERPER_API_KEY}"
+
+  rerankerType: "jina"
+  jinaApiKey: "${JINA_API_KEY}"
+
+  scraperTimeout: 7500
+  safeSearch: 1
 
 fileConfig:
   endpoints:

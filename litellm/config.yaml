@@ -2,17 +2,20 @@ model_list:
   # SMALL - NO REASONING (FIXED)
   - model_name: small_plain
     litellm_params:
-      model: openrouter/google/gemma-2-9b-it:free
+      model: openrouter/qwen/qwen3-4b:free
       api_key: os.environ/OPENROUTER_API_KEY
       timeout: 18
       stream_timeout: 6
+      extra_body:
+        reasoning:
+          exclude: true
       extra_headers:
         HTTP-Referer: os.environ/OR_SITE_URL
         X-Title: os.environ/OR_APP_NAME
 
   - model_name: small_plain_paid
     litellm_params:
-      model: openrouter/google/gemma-2-9b-it
+      model: openrouter/meta-llama/llama-3.1-8b-instruct
       api_key: os.environ/OPENROUTER_API_KEY
       timeout: 18
       stream_timeout: 6
@@ -22,10 +25,13 @@ model_list:
 
   - model_name: small_plain_backup1
     litellm_params:
-      model: openrouter/google/gemma-2-9b-it:free
+      model: openrouter/qwen/qwen3-4b
       api_key: os.environ/OPENROUTER_API_KEY
-      timeout: 14
-      stream_timeout: 5
+      timeout: 18
+      stream_timeout: 6
+      extra_body:
+        reasoning:
+          exclude: true
       extra_headers:
         HTTP-Referer: os.environ/OR_SITE_URL
         X-Title: os.environ/OR_APP_NAME

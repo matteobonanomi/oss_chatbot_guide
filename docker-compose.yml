@@ -67,6 +67,17 @@ services:
       - rag_uploads:/app/uploads
     networks: [internal]
 
+#  searxng:
+#    image: docker.io/searxng/searxng:latest
+#    restart: unless-stopped
+#    environment:
+#      BASE_URL: http://searxng:8080/
+#      INSTANCE_NAME: librechat-search
+#      SEARXNG_SECRET: ${SEARXNG_SECRET}
+#    volumes:
+#      - ./searxng/settings.yml:/etc/searxng/settings.yml:ro
+#    networks: [internal]
+
   librechat:
     image: ghcr.io/danny-avila/librechat:latest
     restart: unless-stopped
@@ -74,6 +85,7 @@ services:
       - mongodb
       - litellm
       - rag_api
+      - searxng
     environment:
       HOST: 0.0.0.0
       PORT: 3080
@@ -101,6 +113,11 @@ services:
       # RAG
       RAG_API_URL: ${RAG_API_URL}
       RAG_USE_FULL_CONTEXT: ${RAG_USE_FULL_CONTEXT}
+
+      # Web Search
+      SEARXNG_INSTANCE_URL: ${SEARXNG_INSTANCE_URL}
+      SERPER_API_KEY: ${SERPER_API_KEY}
+      JINA_API_KEY: ${JINA_API_KEY}
 
       # Opzionale
       NODE_ENV: production
