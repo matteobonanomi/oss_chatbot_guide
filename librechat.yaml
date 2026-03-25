@@ -103,9 +103,8 @@ endpoints:
       modelDisplayLabel: "OpenRouter"
 
 webSearch:
-  #searchProvider: "searxng"
-  #searxngInstanceUrl: "${SEARXNG_INSTANCE_URL}"
-  searchProvider: "serper"
+  searchProvider: "searxng"
+  searxngInstanceUrl: "${SEARXNG_INSTANCE_URL}"
   scraperProvider: "serper"
   serperApiKey: "${SERPER_API_KEY}"
 
@@ -114,6 +113,10 @@ webSearch:
 
   scraperTimeout: 7500
   safeSearch: 1
+  maxResults: 10
+  resultCount: 10
+  searchLanguage: "en"
+  searchRegion: "US"
 
 fileConfig:
   endpoints:

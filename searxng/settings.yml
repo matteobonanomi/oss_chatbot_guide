@@ -1,0 +1,9 @@
+use_default_settings: true
+
+server:
+  limiter: true
+  limiter_rate: "20/hour"
+
+search:
+  results_limit: 5
+  results_per_page: 5

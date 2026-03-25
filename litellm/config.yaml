@@ -358,3 +358,30 @@ litellm_settings:
 general_settings:
   master_key: os.environ/LITELLM_MASTER_KEY
   max_budget: 15
+  model_max_requests: 
+    small_plain: 10
+    small_light: 8
+    medium_balanced: 6
+    medium_deep: 4
+    large_balanced: 3
+    large_max: 2
+  model_info_map:
+    small_plain:
+      max_input_tokens: 32000
+      max_output_tokens: 8192
+    small_light:
+      max_input_tokens: 32000
+      max_output_tokens: 8192
+    medium_balanced:
+      max_input_tokens: 32000
+      max_output_tokens: 8192
+    medium_deep:
+      max_input_tokens: 32000
+      max_output_tokens: 8192
+    large_balanced:
+      max_input_tokens: 32000
+      max_output_tokens: 8192
+    large_max:
+      max_input_tokens: 32000
+      max_output_tokens: 8192
+  budget_ttb: 10

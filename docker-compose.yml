@@ -67,16 +67,16 @@ services:
       - rag_uploads:/app/uploads
     networks: [internal]
 
-#  searxng:
-#    image: docker.io/searxng/searxng:latest
-#    restart: unless-stopped
-#    environment:
-#      BASE_URL: http://searxng:8080/
-#      INSTANCE_NAME: librechat-search
-#      SEARXNG_SECRET: ${SEARXNG_SECRET}
-#    volumes:
-#      - ./searxng/settings.yml:/etc/searxng/settings.yml:ro
-#    networks: [internal]
+  searxng:
+    image: docker.io/searxng/searxng:latest
+    restart: unless-stopped
+    environment:
+      BASE_URL: http://searxng:8080/
+      INSTANCE_NAME: librechat-search
+      SEARXNG_SECRET: ${SEARXNG_SECRET}
+    volumes:
+      - ./searxng/settings.yml:/etc/searxng/settings.yml:ro
+    networks: [internal]
 
   librechat:
     image: ghcr.io/danny-avila/librechat:latest
@@ -116,6 +116,7 @@ services:
 
       # Web Search
       SEARXNG_INSTANCE_URL: ${SEARXNG_INSTANCE_URL}
+      SEARXNG_API_KEY: ${SEARXNG_API_KEY}
       SERPER_API_KEY: ${SERPER_API_KEY}
       JINA_API_KEY: ${JINA_API_KEY}
 
