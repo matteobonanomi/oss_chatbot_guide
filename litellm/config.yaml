@@ -1,107 +1,317 @@
 model_list:
-  # Plain benchmark / zero-thinking path
-  - model_name: benchmark_plain
+  # SMALL - preset visible
+  - model_name: small_plain
     litellm_params:
       model: openrouter/qwen/qwen3-8b:free
       api_key: os.environ/OPENROUTER_API_KEY
-      timeout: 60
-      stream_timeout: 15
+      timeout: 18
+      stream_timeout: 6
+      reasoning:
+        effort: none
+        exclude: true
       extra_headers:
         HTTP-Referer: os.environ/OR_SITE_URL
         X-Title: os.environ/OR_APP_NAME
-      extra_body:
-        reasoning:
-          effort: none
-          exclude: true
-    model_info:
-      supports_reasoning: false
 
-  - model_name: benchmark_plain_paid
+  - model_name: small_plain_paid
     litellm_params:
       model: openrouter/qwen/qwen3-8b
       api_key: os.environ/OPENROUTER_API_KEY
-      timeout: 60
-      stream_timeout: 15
+      timeout: 18
+      stream_timeout: 6
+      reasoning:
+        effort: none
+        exclude: true
       extra_headers:
         HTTP-Referer: os.environ/OR_SITE_URL
         X-Title: os.environ/OR_APP_NAME
-      extra_body:
-        reasoning:
-          effort: none
-          exclude: true
-    model_info:
-      supports_reasoning: false
 
-  # Small Qwen (<10B), latest stronger paid option
-  - model_name: qwen_small
+  - model_name: small_plain_backup1
+    litellm_params:
+      model: openrouter/qwen/qwen3-4b
+      api_key: os.environ/OPENROUTER_API_KEY
+      timeout: 14
+      stream_timeout: 5
+      reasoning:
+        effort: none
+        exclude: true
+      extra_headers:
+        HTTP-Referer: os.environ/OR_SITE_URL
+        X-Title: os.environ/OR_APP_NAME
+
+  - model_name: small_light
+    litellm_params:
+      model: openrouter/qwen/qwen3-8b:free
+      api_key: os.environ/OPENROUTER_API_KEY
+      timeout: 24
+      stream_timeout: 7
+      reasoning:
+        effort: minimal
+        exclude: false
+      extra_headers:
+        HTTP-Referer: os.environ/OR_SITE_URL
+        X-Title: os.environ/OR_APP_NAME
+    model_info:
+      supports_reasoning: true
+
+  - model_name: small_light_paid
+    litellm_params:
+      model: openrouter/qwen/qwen3-8b
+      api_key: os.environ/OPENROUTER_API_KEY
+      timeout: 24
+      stream_timeout: 7
+      reasoning:
+        effort: minimal
+        exclude: false
+      extra_headers:
+        HTTP-Referer: os.environ/OR_SITE_URL
+        X-Title: os.environ/OR_APP_NAME
+    model_info:
+      supports_reasoning: true
+
+  - model_name: small_light_backup1
     litellm_params:
       model: openrouter/qwen/qwen3.5-9b
       api_key: os.environ/OPENROUTER_API_KEY
-      timeout: 90
-      stream_timeout: 20
+      timeout: 24
+      stream_timeout: 7
+      reasoning:
+        effort: minimal
+        exclude: false
       extra_headers:
         HTTP-Referer: os.environ/OR_SITE_URL
         X-Title: os.environ/OR_APP_NAME
     model_info:
       supports_reasoning: true
 
-  # Medium Qwen (10-20B) with free + paid
-  - model_name: qwen_medium
+  - model_name: small_light_backup2
+    litellm_params:
+      model: openrouter/qwen/qwen3-4b
+      api_key: os.environ/OPENROUTER_API_KEY
+      timeout: 18
+      stream_timeout: 6
+      reasoning:
+        effort: minimal
+        exclude: false
+      extra_headers:
+        HTTP-Referer: os.environ/OR_SITE_URL
+        X-Title: os.environ/OR_APP_NAME
+    model_info:
+      supports_reasoning: true
+
+  # MEDIUM - preset visible
+  - model_name: medium_balanced
     litellm_params:
       model: openrouter/qwen/qwen3-14b:free
       api_key: os.environ/OPENROUTER_API_KEY
-      timeout: 90
-      stream_timeout: 20
+      timeout: 28
+      stream_timeout: 8
+      reasoning:
+        effort: low
+        exclude: false
       extra_headers:
         HTTP-Referer: os.environ/OR_SITE_URL
         X-Title: os.environ/OR_APP_NAME
     model_info:
       supports_reasoning: true
 
-  - model_name: qwen_medium_paid
+  - model_name: medium_balanced_paid
     litellm_params:
       model: openrouter/qwen/qwen3-14b
       api_key: os.environ/OPENROUTER_API_KEY
-      timeout: 90
-      stream_timeout: 20
+      timeout: 28
+      stream_timeout: 8
+      reasoning:
+        effort: low
+        exclude: false
       extra_headers:
         HTTP-Referer: os.environ/OR_SITE_URL
         X-Title: os.environ/OR_APP_NAME
     model_info:
       supports_reasoning: true
 
-  # Big Qwen (80B+ class), strongest main model
-  - model_name: qwen_big
+  - model_name: medium_balanced_backup1
+    litellm_params:
+      model: openrouter/qwen/qwen3-32b
+      api_key: os.environ/OPENROUTER_API_KEY
+      timeout: 36
+      stream_timeout: 10
+      reasoning:
+        effort: low
+        exclude: false
+      extra_headers:
+        HTTP-Referer: os.environ/OR_SITE_URL
+        X-Title: os.environ/OR_APP_NAME
+    model_info:
+      supports_reasoning: true
+
+  - model_name: medium_balanced_backup2
+    litellm_params:
+      model: openrouter/qwen/qwen3.5-35b-a3b
+      api_key: os.environ/OPENROUTER_API_KEY
+      timeout: 36
+      stream_timeout: 10
+      reasoning:
+        effort: low
+        exclude: false
+      extra_headers:
+        HTTP-Referer: os.environ/OR_SITE_URL
+        X-Title: os.environ/OR_APP_NAME
+    model_info:
+      supports_reasoning: true
+
+  - model_name: medium_deep
+    litellm_params:
+      model: openrouter/qwen/qwen3-32b
+      api_key: os.environ/OPENROUTER_API_KEY
+      timeout: 42
+      stream_timeout: 12
+      reasoning:
+        effort: medium
+        exclude: false
+      extra_headers:
+        HTTP-Referer: os.environ/OR_SITE_URL
+        X-Title: os.environ/OR_APP_NAME
+    model_info:
+      supports_reasoning: true
+
+  - model_name: medium_deep_backup1
+    litellm_params:
+      model: openrouter/qwen/qwen3.5-35b-a3b
+      api_key: os.environ/OPENROUTER_API_KEY
+      timeout: 42
+      stream_timeout: 12
+      reasoning:
+        effort: medium
+        exclude: false
+      extra_headers:
+        HTTP-Referer: os.environ/OR_SITE_URL
+        X-Title: os.environ/OR_APP_NAME
+    model_info:
+      supports_reasoning: true
+
+  - model_name: medium_deep_backup2
+    litellm_params:
+      model: openrouter/qwen/qwen3-14b
+      api_key: os.environ/OPENROUTER_API_KEY
+      timeout: 30
+      stream_timeout: 8
+      reasoning:
+        effort: medium
+        exclude: false
+      extra_headers:
+        HTTP-Referer: os.environ/OR_SITE_URL
+        X-Title: os.environ/OR_APP_NAME
+    model_info:
+      supports_reasoning: true
+
+  - model_name: medium_deep_backup3
+    litellm_params:
+      model: openrouter/mistralai/mistral-small-3.2-24b-instruct
+      api_key: os.environ/OPENROUTER_API_KEY
+      timeout: 32
+      stream_timeout: 9
+      extra_headers:
+        HTTP-Referer: os.environ/OR_SITE_URL
+        X-Title: os.environ/OR_APP_NAME
+
+  # LARGE - preset visible
+  - model_name: large_balanced
+    litellm_params:
+      model: openrouter/qwen/qwen3-next-80b-a3b-instruct:free
+      api_key: os.environ/OPENROUTER_API_KEY
+      timeout: 34
+      stream_timeout: 9
+      extra_headers:
+        HTTP-Referer: os.environ/OR_SITE_URL
+        X-Title: os.environ/OR_APP_NAME
+
+  - model_name: large_balanced_paid
+    litellm_params:
+      model: openrouter/qwen/qwen3-next-80b-a3b-instruct
+      api_key: os.environ/OPENROUTER_API_KEY
+      timeout: 34
+      stream_timeout: 9
+      extra_headers:
+        HTTP-Referer: os.environ/OR_SITE_URL
+        X-Title: os.environ/OR_APP_NAME
+
+  - model_name: large_balanced_backup1
     litellm_params:
       model: openrouter/qwen/qwen3.5-122b-a10b
       api_key: os.environ/OPENROUTER_API_KEY
-      timeout: 180
-      stream_timeout: 30
+      timeout: 48
+      stream_timeout: 12
+      reasoning:
+        effort: high
+        exclude: false
       extra_headers:
         HTTP-Referer: os.environ/OR_SITE_URL
         X-Title: os.environ/OR_APP_NAME
     model_info:
       supports_reasoning: true
 
-  # Mistral alternative
-  - model_name: mistral_reasoning
+  - model_name: large_balanced_backup2
     litellm_params:
-      model: openrouter/mistralai/mistral-small-2603
+      model: openrouter/meta-llama/llama-3.3-70b-instruct
       api_key: os.environ/OPENROUTER_API_KEY
-      timeout: 120
-      stream_timeout: 25
+      timeout: 40
+      stream_timeout: 10
+      extra_headers:
+        HTTP-Referer: os.environ/OR_SITE_URL
+        X-Title: os.environ/OR_APP_NAME
+
+  - model_name: large_max
+    litellm_params:
+      model: openrouter/qwen/qwen3.5-122b-a10b
+      api_key: os.environ/OPENROUTER_API_KEY
+      timeout: 55
+      stream_timeout: 14
+      reasoning:
+        effort: xhigh
+        exclude: false
       extra_headers:
         HTTP-Referer: os.environ/OR_SITE_URL
         X-Title: os.environ/OR_APP_NAME
     model_info:
       supports_reasoning: true
 
-  # Embeddings for RAG
+  - model_name: large_max_backup1
+    litellm_params:
+      model: openrouter/qwen/qwen3-next-80b-a3b-instruct
+      api_key: os.environ/OPENROUTER_API_KEY
+      timeout: 40
+      stream_timeout: 10
+      extra_headers:
+        HTTP-Referer: os.environ/OR_SITE_URL
+        X-Title: os.environ/OR_APP_NAME
+
+  - model_name: large_max_backup2
+    litellm_params:
+      model: openrouter/meta-llama/llama-3.3-70b-instruct
+      api_key: os.environ/OPENROUTER_API_KEY
+      timeout: 42
+      stream_timeout: 10
+      extra_headers:
+        HTTP-Referer: os.environ/OR_SITE_URL
+        X-Title: os.environ/OR_APP_NAME
+
+  - model_name: large_max_backup3
+    litellm_params:
+      model: openrouter/qwen/qwen3-next-80b-a3b-instruct:free
+      api_key: os.environ/OPENROUTER_API_KEY
+      timeout: 34
+      stream_timeout: 9
+      extra_headers:
+        HTTP-Referer: os.environ/OR_SITE_URL
+        X-Title: os.environ/OR_APP_NAME
+
+  # EMBEDDINGS
   - model_name: bge-m3
     litellm_params:
       model: openrouter/baai/bge-m3
       api_key: os.environ/OPENROUTER_API_KEY
-      timeout: 120
+      timeout: 60
       extra_headers:
         HTTP-Referer: os.environ/OR_SITE_URL
         X-Title: os.environ/OR_APP_NAME
@@ -109,15 +319,14 @@ model_list:
 litellm_settings:
   modify_params: true
   drop_params: true
-
+  max_fallbacks: 4
   fallbacks:
-    - {"benchmark_plain": ["benchmark_plain_paid", "qwen_small", "qwen_medium_paid", "qwen_big"]}
-    - {"benchmark_plain_paid": ["qwen_small", "qwen_medium_paid", "qwen_big"]}
-    - {"qwen_small": ["qwen_medium_paid", "benchmark_plain_paid", "qwen_big"]}
-    - {"qwen_medium": ["qwen_medium_paid", "qwen_small", "qwen_big"]}
-    - {"qwen_medium_paid": ["qwen_big", "mistral_reasoning", "qwen_small"]}
-    - {"qwen_big": ["qwen_medium_paid", "mistral_reasoning", "qwen_small"]}
-    - {"mistral_reasoning": ["qwen_medium_paid", "qwen_small", "benchmark_plain_paid"]}
+    - {"small_plain": ["small_plain_paid", "small_plain_backup1"]}
+    - {"small_light": ["small_light_paid", "small_light_backup1", "small_light_backup2"]}
+    - {"medium_balanced": ["medium_balanced_paid", "medium_balanced_backup1", "medium_balanced_backup2"]}
+    - {"medium_deep": ["medium_deep_backup1", "medium_deep_backup2", "medium_deep_backup3"]}
+    - {"large_balanced": ["large_balanced_paid", "large_balanced_backup1", "large_balanced_backup2"]}
+    - {"large_max": ["large_max_backup1", "large_max_backup2", "large_max_backup3"]}
 
 general_settings:
   master_key: os.environ/LITELLM_MASTER_KEY
