@@ -81,6 +81,7 @@ endpoints:
     maxCitationsPerFile: 5
     minRelevanceScore: 0.6
     capabilities:
+      - "tools"
       - "file_search"
       - "context"
       - "web_search"
@@ -103,20 +104,14 @@ endpoints:
       modelDisplayLabel: "OpenRouter"
 
 webSearch:
-  searchProvider: "searxng"
-  searxngInstanceUrl: "${SEARXNG_INSTANCE_URL}"
+  searchProvider: "serper"
   scraperProvider: "serper"
   serperApiKey: "${SERPER_API_KEY}"
 
-  rerankerType: "jina"
-  jinaApiKey: "${JINA_API_KEY}"
-
-  scraperTimeout: 7500
+  scraperTimeout: 20000
   safeSearch: 1
-  maxResults: 10
-  resultCount: 10
-  searchLanguage: "en"
-  searchRegion: "US"
+  maxResults: 5
+  resultCount: 5
 
 fileConfig:
   endpoints:

@@ -346,6 +346,8 @@ model_list:
 litellm_settings:
   modify_params: true
   drop_params: true
+  allowed_params:
+    - plugins
   max_fallbacks: 4
   fallbacks:
     - {"small_plain": ["small_plain_paid", "small_plain_backup1"]}
