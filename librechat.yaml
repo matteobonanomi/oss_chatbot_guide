@@ -4,17 +4,21 @@ interface:
   fileSearch: true
   webSearch: true
   fileCitations: true
-  modelSelect: false
-  parameters: false
+  modelSelect: true
+  parameters: true
   presets: true
+  agents:
+    use: true
+    create: true
+    share: true
+    public: true
 
 modelSpecs:
-  enforce: true
-  prioritize: true
+  enforce: false
+  prioritize: false
   list:
     - name: "small-no-reasoning"
       label: "Small · No Reasoning"
-      default: true
       webSearch: true
       fileSearch: true
       description: "Benchmark rapido: Qwen small con reasoning disattivato lato proxy."
@@ -23,6 +27,7 @@ modelSpecs:
         model: "small_plain"
         modelLabel: "Small · No Reasoning"
         disableStreaming: false
+
     - name: "small-light"
       label: "Small · Light"
       webSearch: true
@@ -33,6 +38,7 @@ modelSpecs:
         model: "small_light"
         modelLabel: "Small · Light"
         disableStreaming: false
+
     - name: "medium-balanced"
       label: "Medium · Balanced"
       webSearch: true
@@ -43,6 +49,7 @@ modelSpecs:
         model: "medium_balanced"
         modelLabel: "Medium · Balanced"
         disableStreaming: false
+
     - name: "medium-deep"
       label: "Medium · Deep"
       webSearch: true
@@ -53,6 +60,7 @@ modelSpecs:
         model: "medium_deep"
         modelLabel: "Medium · Deep"
         disableStreaming: false
+
     - name: "large-balanced"
       label: "Large · Balanced"
       webSearch: true
@@ -63,6 +71,7 @@ modelSpecs:
         model: "large_balanced"
         modelLabel: "Large · Balanced"
         disableStreaming: false
+
     - name: "large-max"
       label: "Large · Max"
       webSearch: true
@@ -77,6 +86,8 @@ modelSpecs:
 endpoints:
   agents:
     disableBuilder: false
+    allowedProviders:
+      - "OpenRouter"
     maxCitations: 20
     maxCitationsPerFile: 5
     minRelevanceScore: 0.6
@@ -85,18 +96,19 @@ endpoints:
       - "file_search"
       - "context"
       - "web_search"
+
   custom:
     - name: "OpenRouter"
       apiKey: "${LITELLM_MASTER_KEY}"
       baseURL: "http://litellm:4000/v1"
       models:
         default:
-          - small_plain
-          - small_light
-          - medium_balanced
-          - medium_deep
-          - large_balanced
-          - large_max
+          - "small_plain"
+          - "small_light"
+          - "medium_balanced"
+          - "medium_deep"
+          - "large_balanced"
+          - "large_max"
         fetch: false
       titleConvo: true
       titleModel: "current_model"
@@ -107,7 +119,6 @@ webSearch:
   searchProvider: "serper"
   scraperProvider: "serper"
   serperApiKey: "${SERPER_API_KEY}"
-
   scraperTimeout: 20000
   safeSearch: 1
   maxResults: 5
@@ -126,6 +137,7 @@ fileConfig:
         - "^application/xml$"
         - "^application/vnd.openxmlformats-officedocument.wordprocessingml.document$"
         - "^application/msword$"
+
     agents:
       fileLimit: 10
       fileSizeLimit: 25
@@ -137,6 +149,7 @@ fileConfig:
         - "^application/xml$"
         - "^application/vnd.openxmlformats-officedocument.wordprocessingml.document$"
         - "^application/msword$"
+
     OpenRouter:
       fileLimit: 5
       fileSizeLimit: 25
@@ -148,9 +161,11 @@ fileConfig:
         - "^application/xml$"
         - "^application/vnd.openxmlformats-officedocument.wordprocessingml.document$"
         - "^application/msword$"
+
   serverFileSizeLimit: 30
   avatarSizeLimit: 2
   fileTokenLimit: 100000
+
   text:
     supportedMimeTypes:
       - "^application/pdf$"
