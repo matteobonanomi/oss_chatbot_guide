@@ -14,7 +14,7 @@ interface:
     public: true
 
 modelSpecs:
-  enforce: true
+  enforce: false
   prioritize: false
   list:
     - name: "small-no-reasoning"
