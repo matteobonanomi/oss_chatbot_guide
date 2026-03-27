@@ -221,7 +221,7 @@ model_list:
       stream_timeout: 9
       extra_body:
         reasoning:
-          exclude: false
+          exclude: true
       extra_headers:
         HTTP-Referer: os.environ/OR_SITE_URL
         X-Title: os.environ/OR_APP_NAME
@@ -236,7 +236,7 @@ model_list:
       stream_timeout: 9
       extra_body:
         reasoning:
-          exclude: false
+          exclude: true
       extra_headers:
         HTTP-Referer: os.environ/OR_SITE_URL
         X-Title: os.environ/OR_APP_NAME
@@ -251,7 +251,7 @@ model_list:
       stream_timeout: 12
       extra_body:
         reasoning:
-          exclude: false
+          exclude: true
       extra_headers:
         HTTP-Referer: os.environ/OR_SITE_URL
         X-Title: os.environ/OR_APP_NAME
@@ -266,7 +266,7 @@ model_list:
       stream_timeout: 10
       extra_body:
         reasoning:
-          exclude: false
+          exclude: true
       extra_headers:
         HTTP-Referer: os.environ/OR_SITE_URL
         X-Title: os.environ/OR_APP_NAME
@@ -369,21 +369,72 @@ general_settings:
     large_max: 2
   model_info_map:
     small_plain:
-      max_input_tokens: 32000
-      max_output_tokens: 8192
+      max_input_tokens: 128000
+      max_output_tokens: 1024
+    small_plain_paid:
+      max_input_tokens: 128000
+      max_output_tokens: 1024
+    small_plain_backup1:
+      max_input_tokens: 128000
+      max_output_tokens: 1024
     small_light:
-      max_input_tokens: 32000
-      max_output_tokens: 8192
+      max_input_tokens: 128000
+      max_output_tokens: 1024
+    small_light_paid:
+      max_input_tokens: 128000
+      max_output_tokens: 1024
+    small_light_backup1:
+      max_input_tokens: 128000
+      max_output_tokens: 1024
+    small_light_backup2:
+      max_input_tokens: 128000
+      max_output_tokens: 1024
     medium_balanced:
-      max_input_tokens: 32000
-      max_output_tokens: 8192
+      max_input_tokens: 128000
+      max_output_tokens: 1024
+    medium_balanced_paid:
+      max_input_tokens: 128000
+      max_output_tokens: 1024
+    medium_balanced_backup1:
+      max_input_tokens: 128000
+      max_output_tokens: 1024
+    medium_balanced_backup2:
+      max_input_tokens: 128000
+      max_output_tokens: 1024
     medium_deep:
-      max_input_tokens: 32000
-      max_output_tokens: 8192
+      max_input_tokens: 128000
+      max_output_tokens: 1024
+    medium_deep_backup1:
+      max_input_tokens: 128000
+      max_output_tokens: 1024
+    medium_deep_backup2:
+      max_input_tokens: 128000
+      max_output_tokens: 1024
+    medium_deep_backup3:
+      max_input_tokens: 128000
+      max_output_tokens: 1024
     large_balanced:
-      max_input_tokens: 32000
-      max_output_tokens: 8192
+      max_input_tokens: 128000
+      max_output_tokens: 1024
+    large_balanced_paid:
+      max_input_tokens: 128000
+      max_output_tokens: 1024
+    large_balanced_backup1:
+      max_input_tokens: 128000
+      max_output_tokens: 1024
+    large_balanced_backup2:
+      max_input_tokens: 128000
+      max_output_tokens: 1024
     large_max:
-      max_input_tokens: 32000
-      max_output_tokens: 8192
+      max_input_tokens: 128000
+      max_output_tokens: 1024
+    large_max_backup1:
+      max_input_tokens: 128000
+      max_output_tokens: 1024
+    large_max_backup2:
+      max_input_tokens: 128000
+      max_output_tokens: 1024
+    large_max_backup3:
+      max_input_tokens: 128000
+      max_output_tokens: 1024
   budget_ttb: 10

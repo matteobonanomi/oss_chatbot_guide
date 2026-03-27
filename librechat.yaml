@@ -14,83 +14,95 @@ interface:
     public: true
 
 modelSpecs:
-  enforce: false
+  enforce: true
   prioritize: false
   list:
     - name: "small-no-reasoning"
       label: "Small · No Reasoning"
       webSearch: true
       fileSearch: true
-      description: "Benchmark rapido: Qwen small con reasoning disattivato lato proxy."
+      description: "Benchmark rapido: Qwen small con reasoning disattivato lato proxy. Budget contesto molto prudente."
       preset:
         endpoint: "OpenRouter"
         model: "small_plain"
         modelLabel: "Small · No Reasoning"
         disableStreaming: false
+        maxContextTokens: 12000
+        max_tokens: 384
 
     - name: "small-light"
       label: "Small · Light"
       webSearch: true
       fileSearch: true
-      description: "Qwen small economico con reasoning minimo."
+      description: "Qwen small economico con reasoning minimo. Budget contesto prudente per evitare overflow su web search."
       preset:
         endpoint: "OpenRouter"
         model: "small_light"
         modelLabel: "Small · Light"
         disableStreaming: false
+        maxContextTokens: 16000
+        max_tokens: 512
 
     - name: "medium-balanced"
       label: "Medium · Balanced"
       webSearch: true
       fileSearch: true
-      description: "Categoria medium con priorità a free/cheap e reasoning leggero."
+      description: "Categoria medium con priorità a free/cheap e reasoning leggero. Budget contesto conservativo."
       preset:
         endpoint: "OpenRouter"
         model: "medium_balanced"
         modelLabel: "Medium · Balanced"
         disableStreaming: false
+        maxContextTokens: 24000
+        max_tokens: 640
 
     - name: "medium-deep"
       label: "Medium · Deep"
       webSearch: true
       fileSearch: true
-      description: "Categoria medium ottimizzata per qualità, con reasoning medio."
+      description: "Categoria medium ottimizzata per qualità, con reasoning medio. Più margine per tool output."
       preset:
         endpoint: "OpenRouter"
         model: "medium_deep"
         modelLabel: "Medium · Deep"
         disableStreaming: false
+        maxContextTokens: 36000
+        max_tokens: 768
 
     - name: "large-balanced"
       label: "Large · Balanced"
       webSearch: true
       fileSearch: true
-      description: "Large più rapido/stabile, con primo hop free se disponibile."
+      description: "Large più rapido/stabile, con primo hop free se disponibile. Budget contesto ampio ma non aggressivo."
       preset:
         endpoint: "OpenRouter"
         model: "large_balanced"
         modelLabel: "Large · Balanced"
         disableStreaming: false
+        maxContextTokens: 48000
+        max_tokens: 768
 
     - name: "large-max"
       label: "Large · Max"
       webSearch: true
       fileSearch: true
-      description: "Preset large più robusto: massima qualità e massimo reasoning."
+      description: "Preset large più robusto: massima qualità e massimo reasoning. Massimo margine operativo per web search."
       preset:
         endpoint: "OpenRouter"
         model: "large_max"
         modelLabel: "Large · Max"
         disableStreaming: false
+        maxContextTokens: 64000
+        max_tokens: 896
 
 endpoints:
   agents:
     disableBuilder: false
     allowedProviders:
       - "OpenRouter"
-    maxCitations: 20
-    maxCitationsPerFile: 5
-    minRelevanceScore: 0.6
+    maxCitations: 4
+    maxCitationsPerFile: 1
+    minRelevanceScore: 0.75
     capabilities:
       - "tools"
       - "file_search"
@@ -116,13 +128,26 @@ endpoints:
       modelDisplayLabel: "OpenRouter"
 
 webSearch:
-  searchProvider: "serper"
-  scraperProvider: "serper"
+  # Search provider
+  searxngInstanceUrl: "${SEARXNG_INSTANCE_URL}"
+  searxngApiKey: "${SEARXNG_API_KEY}"
+  searchProvider: "searxng"
+
+  # Scraper
   serperApiKey: "${SERPER_API_KEY}"
-  scraperTimeout: 20000
+  scraperProvider: "serper"
+
+  # Reranker
+  jinaApiKey: "${JINA_API_KEY}"
+  rerankerType: "jina"
+
+  # Web search remains intentionally conservative.
+  # maxResults/resultCount are left low because the current issue appears
+  # to be payload growth after retrieval, not lack of raw model context.
+  scraperTimeout: 12000
   safeSearch: 1
-  maxResults: 5
-  resultCount: 5
+  maxResults: 2
+  resultCount: 2
 
 fileConfig:
   endpoints:

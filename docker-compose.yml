@@ -64,6 +64,9 @@ services:
       DEBUG_RAG_API: ${DEBUG_RAG_API}
       DEBUG_PGVECTOR_QUERIES: ${DEBUG_PGVECTOR_QUERIES}
       DEBUG_WEB_SEARCH: "true"
+      WEB_SEARCH_SEARXNG_INSTANCE_URL: ${SEARXNG_INSTANCE_URL}
+      WEB_SEARCH_SERPER_API_KEY: ${SERPER_API_KEY}
+      WEB_SEARCH_JINA_API_KEY: ${JINA_API_KEY}
     volumes:
       - rag_uploads:/app/uploads
     networks: [internal]
@@ -116,8 +119,11 @@ services:
       RAG_USE_FULL_CONTEXT: ${RAG_USE_FULL_CONTEXT}
 
       # Web Search
+      SEARXNG_INSTANCE_URL: ${SEARXNG_INSTANCE_URL}
+      SEARXNG_API_KEY: ${SEARXNG_API_KEY}
       SERPER_API_KEY: ${SERPER_API_KEY}
       JINA_API_KEY: ${JINA_API_KEY}
+      JINA_API_URL: "https://api.jina.ai"
 
       # Opzionale
       NODE_ENV: production
